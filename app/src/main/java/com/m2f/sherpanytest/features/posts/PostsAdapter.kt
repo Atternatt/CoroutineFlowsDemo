@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.m2f.sherpanytest.R
 import com.m2f.sherpanytest.coreBusiness.common.model.domain.Post
+import com.m2f.sherpanytest.databinding.RowPostBinding
 
 class PostsAdapter(private val onItemSelected: (View, Post) -> Unit) :
     RecyclerView.Adapter<PostsAdapter.PostViewholder>(), Filterable {
@@ -77,6 +78,10 @@ class PostsAdapter(private val onItemSelected: (View, Post) -> Unit) :
         fun bind(item: Post) {
             itemView.setOnClickListener {
                 onItemSelected(it, item)
+            }
+            RowPostBinding.bind(itemView).apply {
+                post = item
+                executePendingBindings()
             }
         }
     }

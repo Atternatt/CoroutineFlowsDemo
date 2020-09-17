@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.m2f.sherpanytest.R
+import com.m2f.sherpanytest.coreBusiness.common.model.domain.Post
 import com.m2f.sherpanytest.di.viewmodel.ViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -61,6 +62,15 @@ class ItemListFragment : Fragment() {
                 itemView.findNavController().navigate(R.id.show_item_detail, bundle)
             }
         }
+
+        (recyclerView.adapter as PostsAdapter).initData(listOf(
+            Post(
+                id = 0,
+                title = "asperiores ea ipsam voluptatibus modi minima quia sint",
+                body = "repellat aliquid praesentium dolorem quo\\nsed totam minus non itaque\\nnihil labore molestiae sunt dolor eveniet hic recusandae veniam\\ntempora et tenetur expedita sunt",
+                userId = 300
+            )
+        ))
 
         //TODO @Marc -> setup recyclerview with adapter
     }
