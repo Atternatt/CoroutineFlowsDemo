@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.m2f.sherpanytest.R
 import com.m2f.sherpanytest.coreBusiness.common.model.domain.Post
 import com.m2f.sherpanytest.di.viewmodel.ViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
 
 /**
  * A Fragment representing a list of Pings. This fragment
@@ -63,14 +65,23 @@ class ItemListFragment : Fragment() {
             }
         }
 
-        (recyclerView.adapter as PostsAdapter).initData(listOf(
-            Post(
-                id = 0,
-                title = "asperiores ea ipsam voluptatibus modi minima quia sint",
-                body = "repellat aliquid praesentium dolorem quo\\nsed totam minus non itaque\\nnihil labore molestiae sunt dolor eveniet hic recusandae veniam\\ntempora et tenetur expedita sunt",
-                userId = 300
+        val dividerItemDecoration = DividerItemDecoration(
+            recyclerView.context,
+            RecyclerView.VERTICAL
+        )
+        recyclerView.addItemDecoration(dividerItemDecoration)
+
+
+        (recyclerView.adapter as PostsAdapter).initData(
+            listOf(
+                Post(
+                    id = 0,
+                    title = "asperiores ea ipsam voluptatibus modi minima quia sint",
+                    body = "repellat aliquid praesentium dolorem quo\nsed totam minus non itaque\nnihil labore molestiae sunt dolor eveniet hic recusandae veniam\ntempora et tenetur expedita sunt",
+                    userId = 300
+                )
             )
-        ))
+        )
 
         //TODO @Marc -> setup recyclerview with adapter
     }
