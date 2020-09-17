@@ -1,41 +1,53 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/item_list"
-        android:name="com.m2f.sherpanytest.ItemListFragment"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/container_margin"
-        android:layout_marginEnd="@dimen/container_margin"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:context="com.m2f.sherpanytest.features.posts.ItemDetailHostActivity"
-        tools:listitem="@layout/item_list_content" />
+    <data>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/item_width" />
+        <variable
+            name="viewModel"
+            type="com.m2f.sherpanytest.features.posts.PostsViewModel" />
+    </data>
 
-    <fragment
-        android:id="@+id/item_detail_nav_container"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/container_margin"
-        app:defaultNavHost="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/guideline"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/primary_details_sub_nav_graph" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/item_list"
+            android:name="com.m2f.sherpanytest.ItemListFragment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/container_margin"
+            android:layout_marginEnd="@dimen/container_margin"
+            bind:posts="@{viewModel.posts}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:context="com.m2f.sherpanytest.features.posts.ItemDetailHostActivity"
+            tools:listitem="@layout/item_list_content" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/item_width" />
+
+        <fragment
+            android:id="@+id/item_detail_nav_container"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/container_margin"
+            app:defaultNavHost="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navGraph="@navigation/primary_details_sub_nav_graph" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

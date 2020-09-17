@@ -1,7 +1,7 @@
 package com.m2f.sherpanytest.coreBusiness.domain.features.posts.di
 
-import com.m2f.sherpanytest.coreBusiness.domain.features.posts.DefaultGetPostsInteractor
-import com.m2f.sherpanytest.coreBusiness.domain.features.posts.GetPostsInteractor
+import com.m2f.sherpanytest.coreBusiness.domain.features.posts.interactor.DefaultGetPostsInteractor
+import com.m2f.sherpanytest.coreBusiness.domain.features.posts.interactor.GetPostsInteractor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

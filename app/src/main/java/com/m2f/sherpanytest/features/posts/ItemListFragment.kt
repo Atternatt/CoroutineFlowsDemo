@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.m2f.sherpanytest.R
 import com.m2f.sherpanytest.coreBusiness.common.model.domain.Post
+import com.m2f.sherpanytest.databinding.FragmentItemListBinding
 import com.m2f.sherpanytest.di.viewmodel.ViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -40,8 +42,15 @@ class ItemListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_item_list, container, false)
+        return FragmentItemListBinding.inflate(inflater, container, false)
+            .apply {
+                lifecycleOwner = this@ItemListFragment
+                viewModel = this@ItemListFragment.viewModel
+
+                this@ItemListFragment.viewModel.initialize()
+
+            }
+            .root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -71,18 +80,14 @@ class ItemListFragment : Fragment() {
         )
         recyclerView.addItemDecoration(dividerItemDecoration)
 
+    }
 
-        (recyclerView.adapter as PostsAdapter).initData(
-            listOf(
-                Post(
-                    id = 0,
-                    title = "asperiores ea ipsam voluptatibus modi minima quia sint",
-                    body = "repellat aliquid praesentium dolorem quo\nsed totam minus non itaque\nnihil labore molestiae sunt dolor eveniet hic recusandae veniam\ntempora et tenetur expedita sunt",
-                    userId = 300
-                )
-            )
-        )
+    companion object Bindings {
 
-        //TODO @Marc -> setup recyclerview with adapter
+        @BindingAdapter("bind:posts")
+        @JvmStatic
+        fun RecyclerView.bindPosts(list: List<Post>) {
+            (adapter as? PostsAdapter)?.initData(list)
+        }
     }
 }
