@@ -1,4 +1,4 @@
-package com.m2f.sherpanytest
+package com.m2f.sherpanytest.features.posts
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.m2f.sherpanytest.placeholder.PlaceholderContent
+import com.m2f.sherpanytest.R
+import com.m2f.sherpanytest.features.posts.placeholder.PlaceholderContent
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * A fragment representing a single Item detail screen.
@@ -15,6 +17,7 @@ import com.m2f.sherpanytest.placeholder.PlaceholderContent
  * in two-pane mode (on larger screen devices) or self-contained
  * on handsets.
  */
+@AndroidEntryPoint
 class ItemDetailFragment : Fragment() {
 
   /**

@@ -1,4 +1,4 @@
-package com.m2f.sherpanytest.placeholder
+package com.m2f.sherpanytest.features.posts.placeholder
 
 import java.util.ArrayList
 import java.util.HashMap

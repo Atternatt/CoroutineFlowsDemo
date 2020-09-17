@@ -4,7 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context=".ItemDetailHostActivity"
+  tools:context=".features.posts.ItemDetailHostActivity"
   tools:ignore="MergeRootFrame">
 
   <com.google.android.material.appbar.AppBarLayout
@@ -45,7 +45,7 @@
       android:layout_height="match_parent"
       android:padding="16dp"
       android:textIsSelectable="true"
-      tools:context="com.m2f.sherpanytest.ItemDetailFragment" />
+      tools:context="com.m2f.sherpanytest.features.posts.ItemDetailFragment" />
 
   </androidx.core.widget.NestedScrollView>
 
