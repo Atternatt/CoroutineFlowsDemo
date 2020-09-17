@@ -11,7 +11,10 @@ import com.m2f.sherpanytest.R
 import com.m2f.sherpanytest.coreBusiness.common.model.domain.Post
 import com.m2f.sherpanytest.databinding.RowPostBinding
 
-class PostsAdapter(private val onItemSelected: (View, Post) -> Unit) :
+class PostsAdapter(
+    private val onItemSelected: (View, Post) -> Unit,
+    private val onItemRemoved: (Post) -> Unit
+) :
     RecyclerView.Adapter<PostsAdapter.PostViewholder>(), Filterable {
 
     private var originalData: List<Post> = emptyList()
@@ -83,6 +86,9 @@ class PostsAdapter(private val onItemSelected: (View, Post) -> Unit) :
                 onItemSelected(it, item)
             }
             binding.post = item
+            binding.ivDelete.setOnClickListener {
+                onItemRemoved(item)
+            }
             binding.executePendingBindings()
         }
     }

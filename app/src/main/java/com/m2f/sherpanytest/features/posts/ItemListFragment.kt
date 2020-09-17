@@ -34,7 +34,7 @@ class ItemListFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private val viewModel: PostsViewModel by lazy {
+    private val vm: PostsViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(PostsViewModel::class.java)
     }
 
@@ -45,9 +45,11 @@ class ItemListFragment : Fragment() {
         return FragmentItemListBinding.inflate(inflater, container, false)
             .apply {
                 lifecycleOwner = this@ItemListFragment
-                viewModel = this@ItemListFragment.viewModel
+                viewModel = vm
 
-                this@ItemListFragment.viewModel.initialize()
+                //for a cold start we force to download the posts from server
+                vm.retrievePosts(forceRefresh = true)
+
 
             }
             .root
@@ -60,19 +62,24 @@ class ItemListFragment : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.item_list)
         val itemDetailFragmentContainer: View? = view.findViewById(R.id.item_detail_nav_container)
 
-        recyclerView.adapter = PostsAdapter { itemView, post ->
-            val bundle = Bundle()
-            bundle.putString(
-                ItemDetailFragment.ARG_ITEM_ID,
-                post.id.toString()
-            )
-            if (itemDetailFragmentContainer != null) {
-                itemDetailFragmentContainer.findNavController()
-                    .navigate(R.id.fragment_item_detail, bundle)
-            } else {
-                itemView.findNavController().navigate(R.id.show_item_detail, bundle)
-            }
-        }
+        //todo @Marc -> search a better approach with data binding to handle clicks and actions like navigations.
+        recyclerView.adapter = PostsAdapter(
+            onItemSelected = { itemView, post ->
+                val bundle = Bundle()
+                bundle.putString(
+                    ItemDetailFragment.ARG_ITEM_ID,
+                    post.id.toString()
+                )
+                if (itemDetailFragmentContainer != null) {
+                    itemDetailFragmentContainer.findNavController()
+                        .navigate(R.id.fragment_item_detail, bundle)
+                } else {
+                    itemView.findNavController().navigate(R.id.show_item_detail, bundle)
+                }
+            },
+            onItemRemoved = {
+                vm.deletePostWithId(it.id)
+            })
 
         val dividerItemDecoration = DividerItemDecoration(
             recyclerView.context,

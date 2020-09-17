@@ -6,6 +6,11 @@ CREATE TABLE PostDBO (
 
 CREATE INDEX PostDBO_id ON PostDBO(id);
 
+
+selectAll:
+SELECT *
+FROM PostDBO;
+
 selectPostById:
 SELECT *
 FROM PostDBO
@@ -13,3 +18,7 @@ WHERE id = ?;
 
 insertOrReplace:
 INSERT OR REPLACE INTO PostDBO VALUES ?;
+
+deletePostWithId:
+DELETE FROM PostDBO
+WHERE id = ?;

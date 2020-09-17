@@ -10,6 +10,13 @@
             type="com.m2f.sherpanytest.features.posts.PostsViewModel" />
     </data>
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:onRefreshListener="{ () -> viewModel.retrievePosts(true)}"
+        app:refreshing="@{viewModel.isLoading}">
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_list"
         android:name="com.m2f.sherpanytest.ItemListFragment"
@@ -19,4 +26,5 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:context=".features.posts.ItemDetailHostActivity"
         tools:listitem="@layout/item_list_content" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>
