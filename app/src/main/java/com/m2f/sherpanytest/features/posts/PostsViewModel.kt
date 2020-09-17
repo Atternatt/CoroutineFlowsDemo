@@ -21,7 +21,8 @@ class PostsViewModel @Inject constructor(private val getPostsInteractor: GetPost
     fun initialize() {
         viewModelScope.launch {
             _posts.value = try {
-                getPostsInteractor()
+                val posts = getPostsInteractor()
+                posts
             } catch (e: Exception) {
                 emptyList()
             }

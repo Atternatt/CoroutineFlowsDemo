@@ -75,14 +75,15 @@ class PostsAdapter(private val onItemSelected: (View, Post) -> Unit) :
 
     inner class PostViewholder(containerView: View) :
         RecyclerView.ViewHolder(containerView) {
+
+        private val binding: RowPostBinding = RowPostBinding.bind(containerView)
+
         fun bind(item: Post) {
             itemView.setOnClickListener {
                 onItemSelected(it, item)
             }
-            RowPostBinding.bind(itemView).apply {
-                post = item
-                executePendingBindings()
-            }
+            binding.post = item
+            binding.executePendingBindings()
         }
     }
 
