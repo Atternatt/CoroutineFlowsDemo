@@ -1,0 +1,15 @@
+CREATE TABLE PostDBO (
+    body TEXT NOT NULL,
+    id INTEGER NOT NULL PRIMARY KEY,
+    title TEXT NOT NULL,
+    userId INTEGER NOT NULL);
+
+CREATE INDEX PostDBO_id ON PostDBO(id);
+
+selectPostById:
+SELECT *
+FROM PostDBO
+WHERE id = ?;
+
+insertOrReplace:
+INSERT OR REPLACE INTO PostDBO VALUES ?;

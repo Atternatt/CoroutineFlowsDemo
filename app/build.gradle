@@ -1,0 +1,104 @@
+plugins {
+  id 'com.android.application'
+  id 'kotlin-android'
+  id 'dagger.hilt.android.plugin'
+  id 'kotlin-kapt'
+}
+
+apply plugin: 'com.squareup.sqldelight'
+
+android {
+  compileSdkVersion 29
+  buildToolsVersion "29.0.3"
+
+  defaultConfig {
+    applicationId "com.m2f.sherpanytest"
+    minSdkVersion 23
+    targetSdkVersion 29
+    versionCode 1
+    versionName "1.0"
+
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+    }
+  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+  packagingOptions {
+    exclude "META-INF/*"
+  }
+  kotlinOptions {
+    jvmTarget = '1.8'
+  }
+}
+
+dependencies {
+
+  implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  implementation 'androidx.core:core-ktx:1.3.1'
+  implementation 'androidx.recyclerview:recyclerview:1.1.0'
+  implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+  implementation 'androidx.navigation:navigation-fragment-ktx:2.3.0'
+  implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
+  implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+  implementation 'androidx.navigation:navigation-ui-ktx:2.3.0'
+
+  implementation 'androidx.appcompat:appcompat:1.2.0'
+  implementation 'com.google.android.material:material:1.2.1'
+  // coroutines
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.8"
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:1.3.8"
+
+  // serialization library
+  implementation "org.jetbrains.kotlinx:kotlinx-serialization-core:1.0.0-RC"
+  implementation "org.jetbrains.kotlinx:kotlinx-serialization-cbor:1.0.0-RC"
+
+  // http client library
+  implementation "io.ktor:ktor-client-core:1.3.2"
+  implementation "io.ktor:ktor-client-json:1.3.2"
+  implementation "io.ktor:ktor-client-logging:1.3.2"
+  implementation "io.ktor:ktor-client-serialization:1.3.2"
+
+  // date library
+  implementation "com.soywiz.korlibs.klock:klock:1.8.0"
+
+  // SQL Delight
+  implementation "com.squareup.sqldelight:coroutines-extensions:1.4.3"
+  implementation "com.squareup.sqldelight:android-driver:1.4.3"
+
+  //region android dependencies
+
+  // coroutines android
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.8"
+
+  //arch components
+  implementation "android.arch.lifecycle:runtime:1.1.1"
+  implementation "android.arch.lifecycle:extensions:1.1.1"
+  implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+
+  //DI
+  api "com.google.dagger:hilt-android:2.28-alpha"
+  api 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+  kapt "com.google.dagger:hilt-android-compiler:2.28-alpha"
+
+
+  // ktor android
+  implementation "io.ktor:ktor-client-android:1.3.2"
+  implementation "io.ktor:ktor-client-core-jvm:1.3.2"
+  implementation "io.ktor:ktor-client-json-jvm:1.3.2"
+  implementation "io.ktor:ktor-client-logging-jvm:1.3.2"
+
+  implementation "androidx.annotation:annotation:1.2.0-alpha01"
+  //endregion
+
+  testImplementation 'junit:junit:4.+'
+  androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+  androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+}
