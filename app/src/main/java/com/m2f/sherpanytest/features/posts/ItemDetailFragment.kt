@@ -1,14 +1,13 @@
 package com.m2f.sherpanytest.features.posts
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import com.google.android.material.appbar.CollapsingToolbarLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.Fragment
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.m2f.sherpanytest.R
-import com.m2f.sherpanytest.features.posts.placeholder.PlaceholderContent
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -20,48 +19,37 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ItemDetailFragment : Fragment() {
 
-  /**
-   * The placeholder content this fragment is presenting.
-   */
-  private var item: PlaceholderContent.PlaceholderItem? = null
+    lateinit var itemDetailTextView: TextView
 
-  lateinit var itemDetailTextView: TextView
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-
-    arguments?.let {
-      if (it.containsKey(ARG_ITEM_ID)) {
-        // Load the placeholder content specified by the fragment
-        // arguments. In a real-world scenario, use a Loader
-        // to load content from a content provider.
-        item = PlaceholderContent.ITEM_MAP[it.getString(ARG_ITEM_ID)]
-      }
+        arguments?.let {
+            if (it.containsKey(ARG_ITEM_ID)) {
+                //TODO @Marc -> call viewmodel function to load post detail
+            }
+        }
     }
-  }
 
-  override fun onCreateView(
+    override fun onCreateView(
       inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?
-  ): View? {
-    val rootView = inflater.inflate(R.layout.fragment_item_detail, container, false)
+    ): View? {
+        val rootView = inflater.inflate(R.layout.fragment_item_detail, container, false)
 
-    rootView.findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout)?.title = item?.content
+        rootView.findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout)?.title =
+            "" //TODO: @Marc -> load toolbar title with post title
 
-    itemDetailTextView = rootView.findViewById(R.id.item_detail)
-    // Show the placeholder content as text in a TextView.
-    item?.let {
-      itemDetailTextView.text = it.details
+        itemDetailTextView = rootView.findViewById(R.id.item_detail)
+
+        return rootView
     }
 
-    return rootView
-  }
-
-  companion object {
-    /**
-     * The fragment argument representing the item ID that this fragment
-     * represents.
-     */
-    const val ARG_ITEM_ID = "item_id"
-  }
+    companion object {
+        /**
+         * The fragment argument representing the item ID that this fragment
+         * represents.
+         */
+        const val ARG_ITEM_ID = "item_id"
+    }
 }

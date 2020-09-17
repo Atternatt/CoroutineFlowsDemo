@@ -1,22 +1,15 @@
 package com.m2f.sherpanytest.features.posts
 
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
-import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.m2f.sherpanytest.R
 import com.m2f.sherpanytest.di.viewmodel.ViewModelFactory
-import com.m2f.sherpanytest.features.posts.placeholder.PlaceholderContent;
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -36,7 +29,9 @@ class ItemListFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private val viewModel: PostsViewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(PostsViewModel::class.java) }
+    private val viewModel: PostsViewModel by lazy {
+        ViewModelProviders.of(this, viewModelFactory).get(PostsViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,15 +48,11 @@ class ItemListFragment : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.item_list)
         val itemDetailFragmentContainer: View? = view.findViewById(R.id.item_detail_nav_container)
 
-        /** Click Listener to trigger navigation based on if you have
-         * a single pane layout or two pane layout
-         */
-        val onClickListener = View.OnClickListener { itemView ->
-            val item = itemView.tag as PlaceholderContent.PlaceholderItem
+        recyclerView.adapter = PostsAdapter { itemView, post ->
             val bundle = Bundle()
             bundle.putString(
                 ItemDetailFragment.ARG_ITEM_ID,
-                item.id
+                post.id.toString()
             )
             if (itemDetailFragmentContainer != null) {
                 itemDetailFragmentContainer.findNavController()
@@ -71,68 +62,6 @@ class ItemListFragment : Fragment() {
             }
         }
 
-        /**
-         * Context click listener to handle Right click events
-         * from mice and trackpad input to provide a more native
-         * experience on larger screen devices
-         */
-        val onContextClickListener = View.OnContextClickListener { v ->
-            val item = v.tag as PlaceholderContent.PlaceholderItem
-            Toast.makeText(
-                v.context,
-                "Context click of item " + item.id,
-                Toast.LENGTH_LONG
-            ).show()
-            true
-        }
-        setupRecyclerView(recyclerView, onClickListener, onContextClickListener)
-    }
-
-    private fun setupRecyclerView(
-        recyclerView: RecyclerView,
-        onClickListener: View.OnClickListener,
-        onContextClickListener: View.OnContextClickListener
-    ) {
-
-        recyclerView.adapter = SimpleItemRecyclerViewAdapter(
-            PlaceholderContent.ITEMS,
-            onClickListener,
-            onContextClickListener
-        )
-    }
-
-    class SimpleItemRecyclerViewAdapter(
-        private val values: List<PlaceholderContent.PlaceholderItem>,
-        private val onClickListener: View.OnClickListener,
-        private val onContextClickListener: View.OnContextClickListener
-    ) :
-        RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_list_content, parent, false)
-            return ViewHolder(view)
-        }
-
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            val item = values[position]
-            holder.idView.text = item.id
-            holder.contentView.text = item.content
-
-            with(holder.itemView) {
-                tag = item
-                setOnClickListener(onClickListener)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    setOnContextClickListener(onContextClickListener)
-                }
-            }
-        }
-
-        override fun getItemCount() = values.size
-
-        inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val idView: TextView = view.findViewById(R.id.id_text)
-            val contentView: TextView = view.findViewById(R.id.content)
-        }
+        //TODO @Marc -> setup recyclerview with adapter
     }
 }
