@@ -5,11 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.BindingAdapter
+import androidx.databinding.BindingMethod
+import androidx.databinding.BindingMethods
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.m2f.sherpanytest.R
 import com.m2f.sherpanytest.coreBusiness.common.model.domain.Post
 import com.m2f.sherpanytest.databinding.FragmentItemListBinding
@@ -89,12 +92,36 @@ class ItemListFragment : Fragment() {
 
     }
 
+    @BindingMethods(
+        BindingMethod(
+            type = SwipeRefreshLayout::class,
+            attribute = "bind:onRefreshLayout",
+            method = "setOnRefreshListener"
+        )
+    )
     companion object Bindings {
 
         @BindingAdapter("bind:posts")
         @JvmStatic
-        fun RecyclerView.bindPosts(list: List<Post>) {
-            (adapter as? PostsAdapter)?.initData(list)
+        fun RecyclerView.bindPosts(list: List<Post>?) {
+            if (list != null) {
+                (adapter as? PostsAdapter)?.initData(list)
+            }
+        }
+
+
+        @BindingAdapter("bind:filter")
+        @JvmStatic
+        fun RecyclerView.filter(filter: String?) {
+            if (filter != null) {
+                (adapter as? PostsAdapter)?.filter?.filter(filter)
+            }
+        }
+
+        @BindingAdapter("bind:onRefreshLayout")
+        @JvmStatic
+        fun SwipeRefreshLayout.setOnRefresh(listener: SwipeRefreshLayout.OnRefreshListener?) {
+            setOnRefreshListener(listener)
         }
     }
 }

@@ -5,16 +5,19 @@ import com.m2f.sherpanytest.features.posts.PostsViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.android.scopes.ActivityRetainedScoped
 import dagger.multibindings.IntoMap
 
 
 @Module
-@InstallIn(FragmentComponent::class)
+@InstallIn(ActivityRetainedComponent::class)
 abstract class ViewModelsModule {
 
     @Binds
     @IntoMap
     @ViewModelKey(PostsViewModel::class)
+    @ActivityRetainedScoped
     abstract fun postsViewModel(postsViewModel: PostsViewModel): ViewModel
 }

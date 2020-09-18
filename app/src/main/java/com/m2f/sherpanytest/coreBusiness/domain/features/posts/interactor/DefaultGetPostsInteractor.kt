@@ -3,21 +3,22 @@ package com.m2f.sherpanytest.coreBusiness.domain.features.posts.interactor
 import com.m2f.sherpanytest.coreBusiness.arch.data.operation.CacheSyncOperation
 import com.m2f.sherpanytest.coreBusiness.arch.data.operation.MainSyncOperation
 import com.m2f.sherpanytest.coreBusiness.arch.data.repository.GetRepository
+import com.m2f.sherpanytest.coreBusiness.arch.data.repository.flow.FlowGetRepository
 import com.m2f.sherpanytest.coreBusiness.common.model.domain.Post
 import com.m2f.sherpanytest.coreBusiness.domain.features.posts.data.queries.PostsQuery
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
 class DefaultGetPostsInteractor @Inject constructor(
-    private val getPostsRepository: GetRepository<Post>,
-    private val coroutineScope: CoroutineScope
+    private val getPostsRepository: FlowGetRepository<Post>
 ) :
     GetPostsInteractor {
 
-    override suspend fun invoke(forceRefresh: Boolean): List<Post> = withContext(coroutineScope.coroutineContext) {
+    override operator fun invoke(forceRefresh: Boolean): Flow<List<Post>> {
         val operation = if(forceRefresh) MainSyncOperation else CacheSyncOperation
-        getPostsRepository.getAll(PostsQuery, operation)
+        return getPostsRepository.getAll(PostsQuery, operation)
     }
 }

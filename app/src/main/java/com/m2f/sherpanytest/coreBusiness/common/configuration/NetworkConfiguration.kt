@@ -9,6 +9,6 @@ data class NetworkConfiguration(
     val json: Json,
     val globalHeaders: List<Pair<String, String>> = emptyList()
 ) {
-    val actors: String = "$apiPath/posts"
+    val posts: String = "$apiPath/posts"
 
 }

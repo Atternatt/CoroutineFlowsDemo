@@ -1,7 +1,9 @@
 package com.m2f.sherpanytest.coreBusiness.domain.features.posts.interactor
 
+import kotlinx.coroutines.flow.Flow
+
 
 interface RemovePostInteractor {
 
-    suspend operator fun invoke(postId: Int)
+    operator fun invoke(postId: Int): Flow<Unit>
 }

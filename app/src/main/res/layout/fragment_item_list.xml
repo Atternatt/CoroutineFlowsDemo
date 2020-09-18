@@ -2,7 +2,8 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:binds="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -14,13 +15,14 @@
         android:id="@+id/swipe_refresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:onRefreshListener="{ () -> viewModel.retrievePosts(true)}"
-        app:refreshing="@{viewModel.isLoading}">
+        bind:onRefreshLayout="@{ () -> viewModel.retrievePosts(true)}"
+        binds:refreshing="@{viewModel.isLoading}">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_list"
         android:name="com.m2f.sherpanytest.ItemListFragment"
         bind:posts="@{viewModel.posts}"
+        bind:filter="@{viewModel.debouncedFilter}"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
