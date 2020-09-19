@@ -1,15 +1,19 @@
 package com.m2f.sherpanytest.features.posts
 
 import androidx.lifecycle.*
-import com.m2f.sherpanytest.coreBusiness.common.model.domain.Post
+import com.m2f.sherpanytest.coreBusiness.arch.data.error.DataNotFoundException
 import com.m2f.sherpanytest.coreBusiness.domain.features.posts.interactor.GetPostsInteractor
 import com.m2f.sherpanytest.coreBusiness.domain.features.posts.interactor.RemovePostInteractor
+import com.m2f.sherpanytest.coreBusiness.domain.features.users.interactor.GetUserInteractor
+import com.m2f.sherpanytest.features.posts.model.PostUI
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class PostsViewModel @Inject constructor(
-    //private val getPostsInteractor: GetPostsInteractor,
+    private val getPostsInteractor: GetPostsInteractor,
+    private val getUserInteractor: GetUserInteractor,
     private val removePostInteractor: RemovePostInteractor
 ) :
     ViewModel() {
@@ -24,10 +28,25 @@ class PostsViewModel @Inject constructor(
         .distinctUntilChanged()
         .asLiveData(viewModelScope.coroutineContext)
 
-    val posts: LiveData<List<Post>> = refreshData.switchMap { forceRefresh ->
-        flowOf(emptyList<Post>())
+    val posts: LiveData<List<PostUI>> = refreshData.switchMap { forceRefresh ->
+        _isLoading.value = true
+        getPostsInteractor(forceRefresh = forceRefresh)
+            .flatMapConcat {
+                flowOf(it.asFlow()
+                    .map { post ->
+                        val email = try {
+                            getUserInteractor(post.userId.toLong()).email
+                        } catch (ex: DataNotFoundException) {
+                            //posible race condition detected. FetchDataWorker could not be stored data into database yet
+                            "Unknown mail"
+                        }
+                        PostUI(post.id, post.title, email)
+                    }
+                    .toList())
+            }
+            .flowOn(Dispatchers.Default)
             .onCompletion { _isLoading.value = false }
-            .catch { emptyList<Post>().asFlow() }
+            .catch { emit(emptyList<PostUI>()) }
             .asLiveData(viewModelScope.coroutineContext)
     }
 
@@ -40,7 +59,6 @@ class PostsViewModel @Inject constructor(
     }
 
     fun retrievePosts(forceRefresh: Boolean) {
-        _isLoading.value = true
         refreshData.value = forceRefresh
     }
 

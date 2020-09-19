@@ -6,7 +6,7 @@
     <data>
         <variable
             name="post"
-            type="com.m2f.sherpanytest.coreBusiness.common.model.domain.Post" />
+            type="com.m2f.sherpanytest.features.posts.model.PostUI" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,9 +44,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@{post.body}"
+            android:text="@{post.userEmail}"
             android:singleLine="false"
-            tools:text="repellat aliquid praesentium dolorem quo\nsed totam minus non itaque\nnihil labore molestiae sunt dolor eveniet hic recusandae veniam\ntempora et tenetur expedita sunt"
+            tools:text="@tools:sample/full_names"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/tv_title"

@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface GetAllUsersInteractor {
 
-    operator fun invoke(forceRefresh: Boolean): Flow<List<User>>
+    suspend operator fun invoke(forceRefresh: Boolean): List<User>
 }

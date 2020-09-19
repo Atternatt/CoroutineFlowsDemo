@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface GetUserInteractor {
 
-    operator fun invoke(userId: Long): Flow<User>
+    suspend operator fun invoke(userId: Long): User
 }

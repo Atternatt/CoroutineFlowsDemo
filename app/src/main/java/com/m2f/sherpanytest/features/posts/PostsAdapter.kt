@@ -8,59 +8,59 @@ import android.widget.Filterable
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.m2f.sherpanytest.R
-import com.m2f.sherpanytest.coreBusiness.common.model.domain.Post
 import com.m2f.sherpanytest.databinding.RowPostBinding
+import com.m2f.sherpanytest.features.posts.model.PostUI
 
 class PostsAdapter(
-    private val onItemSelected: (View, Post) -> Unit,
-    private val onItemRemoved: (Post) -> Unit
+    private val onItemSelected: (View, PostUI) -> Unit,
+    private val onItemRemoved: (PostUI) -> Unit
 ) :
-    RecyclerView.Adapter<PostsAdapter.PostViewholder>(), Filterable {
+    RecyclerView.Adapter<PostsAdapter.PostUIViewholder>(), Filterable {
 
-    private var originalData: List<Post> = emptyList()
+    private var originalData: List<PostUI> = emptyList()
 
-    private var data: List<Post> = emptyList()
+    private var data: List<PostUI> = emptyList()
         set(newList) {
-            val calculateDiff = DiffUtil.calculateDiff(PostDiffCallback(field, newList))
+            val calculateDiff = DiffUtil.calculateDiff(PostUIDiffCallback(field, newList))
             calculateDiff.dispatchUpdatesTo(this)
             field = newList
         }
 
-    fun initData(list: List<Post>) {
+    fun initData(list: List<PostUI>) {
         originalData = list
         data = list
     }
 
     override fun getItemCount(): Int = data.size
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewholder {
-        return PostViewholder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostUIViewholder {
+        return PostUIViewholder(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.row_post, parent, false)
         )
     }
 
-    override fun onBindViewHolder(holder: PostViewholder, position: Int) {
+    override fun onBindViewHolder(holder: PostUIViewholder, position: Int) {
         holder.bind(data[position])
     }
 
     override fun getFilter(): Filter = object : Filter() {
         override fun performFiltering(constraint: CharSequence): FilterResults {
-            val filterPost: String = constraint.toString().toLowerCase()
+            val filterPostUI: String = constraint.toString().toLowerCase()
 
             val results = FilterResults()
 
-            val list: List<Post> = originalData
+            val list: List<PostUI> = originalData
 
             val count = list.size
-            val nlist = mutableListOf<Post>()
+            val nlist = mutableListOf<PostUI>()
 
-            var filterablePost: Post
+            var filterablePostUI: PostUI
 
             for (i in 0 until count) {
-                filterablePost = list[i]
-                if (filterablePost.title.toLowerCase().contains(filterPost)) {
-                    nlist.add(filterablePost)
+                filterablePostUI = list[i]
+                if (filterablePostUI.title.toLowerCase().contains(filterPostUI)) {
+                    nlist.add(filterablePostUI)
                 }
             }
 
@@ -71,17 +71,17 @@ class PostsAdapter(
         }
 
         override fun publishResults(constraint: CharSequence, result: FilterResults) {
-            data = result.values as List<Post>
+            data = result.values as List<PostUI>
         }
 
     }
 
-    inner class PostViewholder(containerView: View) :
+    inner class PostUIViewholder(containerView: View) :
         RecyclerView.ViewHolder(containerView) {
 
         private val binding: RowPostBinding = RowPostBinding.bind(containerView)
 
-        fun bind(item: Post) {
+        fun bind(item: PostUI) {
             itemView.setOnClickListener {
                 onItemSelected(it, item)
             }
@@ -95,7 +95,7 @@ class PostsAdapter(
 
 }
 
-class PostDiffCallback(val oldList: List<Post>, val newList: List<Post>) :
+class PostUIDiffCallback(private val oldList: List<PostUI>, private val newList: List<PostUI>) :
     DiffUtil.Callback() {
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         return oldList[oldItemPosition] == newList[newItemPosition]
@@ -104,8 +104,9 @@ class PostDiffCallback(val oldList: List<Post>, val newList: List<Post>) :
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val old = oldList[oldItemPosition]
         val new = newList[newItemPosition]
-        //todo: add all comparable params.
-        return old.id == new.id
+        return old.id == new.id &&
+                old.title == new.title &&
+                old.userEmail == old.userEmail
     }
 
     override fun getOldListSize(): Int {

@@ -33,11 +33,8 @@ class FetchDataWorker(
             val posts = async { getPostsInteractor(forceRefresh = true)
                 .toList()
                 .last() }
-            val users = async {
-                getAllUsersInteractor(forceRefresh = true)
-                    .toList()
-                    .last()
-            }
+
+            val users = async { getAllUsersInteractor(forceRefresh = true) }
 
             val result =
                 if (!users.await().isNullOrEmpty() && !posts.await().isNullOrEmpty()) Result.success() else Result.retry()

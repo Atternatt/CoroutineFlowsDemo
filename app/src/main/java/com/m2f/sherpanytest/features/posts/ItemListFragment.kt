@@ -17,6 +17,7 @@ import com.m2f.sherpanytest.R
 import com.m2f.sherpanytest.coreBusiness.common.model.domain.Post
 import com.m2f.sherpanytest.databinding.FragmentItemListBinding
 import com.m2f.sherpanytest.di.viewmodel.ViewModelFactory
+import com.m2f.sherpanytest.features.posts.model.PostUI
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -103,7 +104,7 @@ class ItemListFragment : Fragment() {
 
         @BindingAdapter("bind:posts")
         @JvmStatic
-        fun RecyclerView.bindPosts(list: List<Post>?) {
+        fun RecyclerView.bindPosts(list: List<PostUI>?) {
             if (list != null) {
                 (adapter as? PostsAdapter)?.initData(list)
             }
@@ -116,12 +117,6 @@ class ItemListFragment : Fragment() {
             if (filter != null) {
                 (adapter as? PostsAdapter)?.filter?.filter(filter)
             }
-        }
-
-        @BindingAdapter("bind:onRefreshLayout")
-        @JvmStatic
-        fun SwipeRefreshLayout.setOnRefresh(listener: SwipeRefreshLayout.OnRefreshListener?) {
-            setOnRefreshListener(listener)
         }
     }
 }

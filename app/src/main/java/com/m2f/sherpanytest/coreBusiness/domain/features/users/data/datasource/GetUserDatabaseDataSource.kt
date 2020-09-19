@@ -1,6 +1,6 @@
 package com.m2f.sherpanytest.coreBusiness.domain.features.users.data.datasource
 
-import com.m2f.sherpanytest.coreBusiness.arch.data.datasource.flow.FlowGetDataSource
+import com.m2f.sherpanytest.coreBusiness.arch.data.datasource.GetDataSource
 import com.m2f.sherpanytest.coreBusiness.arch.data.error.QueryNotSupportedException
 import com.m2f.sherpanytest.coreBusiness.arch.data.query.Query
 import com.m2f.sherpanytest.coreBusiness.domain.features.users.data.queries.UserQuery
@@ -15,18 +15,18 @@ import javax.inject.Inject
 
 
 class GetUserDatabaseDataSource @Inject constructor(private val queries: UserDBOQueries) :
-    FlowGetDataSource<UserDBO> {
+    GetDataSource<UserDBO> {
 
-    override fun get(query: Query): Flow<UserDBO> = when (query) {
+    override suspend fun get(query: Query): UserDBO = when (query) {
         is UserQuery -> {
-            queries.selectUserById(query.identifier).asFlow().mapToOne()
+            queries.selectUserById(query.identifier).executeAsOne()
         }
         else -> throw QueryNotSupportedException()
     }
 
-    override fun getAll(query: Query): Flow<List<UserDBO>> = when (query) {
+    override suspend fun getAll(query: Query): List<UserDBO> = when (query) {
         is UsersQuery -> {
-            queries.getAllUsers().asFlow().mapToList()
+            queries.getAllUsers().executeAsList()
         }
         else -> throw QueryNotSupportedException()
     }
