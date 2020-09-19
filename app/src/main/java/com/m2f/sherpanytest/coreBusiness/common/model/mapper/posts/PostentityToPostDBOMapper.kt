@@ -1,4 +1,4 @@
-package com.m2f.sherpanytest.coreBusiness.common.model.mapper
+package com.m2f.sherpanytest.coreBusiness.common.model.mapper.posts
 
 import com.m2f.sherpanytest.coreBusiness.arch.data.mapper.Mapper
 import com.m2f.sherpanytest.coreBusiness.common.model.data.entity.PostEntity

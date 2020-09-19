@@ -4,20 +4,17 @@ import androidx.lifecycle.*
 import com.m2f.sherpanytest.coreBusiness.common.model.domain.Post
 import com.m2f.sherpanytest.coreBusiness.domain.features.posts.interactor.GetPostsInteractor
 import com.m2f.sherpanytest.coreBusiness.domain.features.posts.interactor.RemovePostInteractor
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class PostsViewModel @Inject constructor(
-    private val getPostsInteractor: GetPostsInteractor,
+    //private val getPostsInteractor: GetPostsInteractor,
     private val removePostInteractor: RemovePostInteractor
 ) :
     ViewModel() {
 
-    val refreshData = MutableLiveData(true)
+    private val refreshData = MutableLiveData(true)
 
     val filter: LiveData<String> = MutableLiveData("")
 
@@ -28,8 +25,9 @@ class PostsViewModel @Inject constructor(
         .asLiveData(viewModelScope.coroutineContext)
 
     val posts: LiveData<List<Post>> = refreshData.switchMap { forceRefresh ->
-        getPostsInteractor(forceRefresh)
+        flowOf(emptyList<Post>())
             .onCompletion { _isLoading.value = false }
+            .catch { emptyList<Post>().asFlow() }
             .asLiveData(viewModelScope.coroutineContext)
     }
 
@@ -42,7 +40,7 @@ class PostsViewModel @Inject constructor(
     }
 
     fun retrievePosts(forceRefresh: Boolean) {
-        //_isLoading.value = true
+        _isLoading.value = true
         refreshData.value = forceRefresh
     }
 

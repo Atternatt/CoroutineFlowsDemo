@@ -1,4 +1,4 @@
-package com.m2f.sherpanytest.coreBusiness.domain.features.posts.data
+package com.m2f.sherpanytest.coreBusiness.domain.features.posts.data.datasource
 
 import com.m2f.sherpanytest.coreBusiness.arch.data.datasource.flow.FlowPutDataSource
 import com.m2f.sherpanytest.coreBusiness.arch.data.error.DataNotFoundException
@@ -20,7 +20,7 @@ class PutPostDatabaseDataSource @Inject constructor(private val queries: PostDBO
                 queries.insertOrReplace(value)
                 emit(value)
             }
-            else -> throw NotImplementedError()
+            else -> throw QueryNotSupportedException()
         }
     }
 
@@ -28,8 +28,8 @@ class PutPostDatabaseDataSource @Inject constructor(private val queries: PostDBO
         if (query == PostsQuery) {
             if (!value.isNullOrEmpty()) {
                 return value.asFlow()
-                    .flatMapConcat { put(PostQuery(it.id), it) }
-                    .scan(listOf()) { list, item -> list + item } //we could return value but scanning the reuslt we ensure that we get all the added items.
+                    .flatMapConcat { put(PostQuery(it.postId), it) }
+                    .scan(listOf()) { list, item -> list + item } //we could return value but scanning the result we ensure that we get only the added items.
 
 
             } else {

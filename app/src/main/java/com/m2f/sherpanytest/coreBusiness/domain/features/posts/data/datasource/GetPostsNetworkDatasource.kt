@@ -1,4 +1,4 @@
-package com.m2f.sherpanytest.coreBusiness.domain.features.posts.data
+package com.m2f.sherpanytest.coreBusiness.domain.features.posts.data.datasource
 
 import com.m2f.sherpanytest.coreBusiness.arch.data.datasource.flow.FlowGetDataSource
 import com.m2f.sherpanytest.coreBusiness.arch.data.error.DataNotFoundException
@@ -10,7 +10,6 @@ import com.m2f.sherpanytest.coreBusiness.domain.features.posts.data.queries.Post
 import io.ktor.client.features.*
 import io.ktor.client.request.*
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.decodeFromString
 import javax.inject.Inject

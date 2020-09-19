@@ -10,5 +10,6 @@ data class NetworkConfiguration(
     val globalHeaders: List<Pair<String, String>> = emptyList()
 ) {
     val posts: String = "$apiPath/posts"
+    val users: String = "$apiPath/users"
 
 }

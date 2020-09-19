@@ -1,0 +1,19 @@
+CREATE TABLE UserDBO (
+    userId INTEGER NOT NULL PRIMARY KEY,
+    email TEXT NOT NULL,
+    userName TEXT NOT NULL,
+    name TEXT NOT NULL);
+
+CREATE INDEX UserDBO_userId ON UserDBO(userId);
+
+selectUserById:
+SELECT *
+FROM UserDBO
+WHERE userId = ?;
+
+insertOrReplaceUser:
+INSERT OR REPLACE INTO UserDBO VALUES ?;
+
+getAllUsers:
+SELECT *
+FROM UserDBO;

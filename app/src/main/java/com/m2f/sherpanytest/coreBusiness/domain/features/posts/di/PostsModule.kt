@@ -10,13 +10,13 @@ import com.m2f.sherpanytest.coreBusiness.arch.data.repository.flow.FlowGetReposi
 import com.m2f.sherpanytest.coreBusiness.arch.data.repository.flow.withMapping
 import com.m2f.sherpanytest.coreBusiness.common.model.data.entity.PostEntity
 import com.m2f.sherpanytest.coreBusiness.common.model.domain.Post
-import com.m2f.sherpanytest.coreBusiness.common.model.mapper.PostDBOtoPostEntityMapper
-import com.m2f.sherpanytest.coreBusiness.common.model.mapper.PostEntityToPostMapper
-import com.m2f.sherpanytest.coreBusiness.common.model.mapper.PostentityToPostDBOMapper
-import com.m2f.sherpanytest.coreBusiness.domain.features.posts.data.DeletePostDatabaseDataSource
-import com.m2f.sherpanytest.coreBusiness.domain.features.posts.data.GetPostsDatabaseDataSource
-import com.m2f.sherpanytest.coreBusiness.domain.features.posts.data.GetPostsNetworkDatasource
-import com.m2f.sherpanytest.coreBusiness.domain.features.posts.data.PutPostDatabaseDataSource
+import com.m2f.sherpanytest.coreBusiness.common.model.mapper.posts.PostDBOtoPostEntityMapper
+import com.m2f.sherpanytest.coreBusiness.common.model.mapper.posts.PostEntityToPostMapper
+import com.m2f.sherpanytest.coreBusiness.common.model.mapper.posts.PostentityToPostDBOMapper
+import com.m2f.sherpanytest.coreBusiness.domain.features.posts.data.datasource.DeletePostDatabaseDataSource
+import com.m2f.sherpanytest.coreBusiness.domain.features.posts.data.datasource.GetPostsDatabaseDataSource
+import com.m2f.sherpanytest.coreBusiness.domain.features.posts.data.datasource.GetPostsNetworkDatasource
+import com.m2f.sherpanytest.coreBusiness.domain.features.posts.data.datasource.PutPostDatabaseDataSource
 import com.m2f.sherpanytest.coreBusiness.domain.features.posts.interactor.DefaultGetPostsInteractor
 import com.m2f.sherpanytest.coreBusiness.domain.features.posts.interactor.DefaultRemovePostInteractor
 import com.m2f.sherpanytest.coreBusiness.domain.features.posts.interactor.GetPostsInteractor
@@ -27,25 +27,27 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityRetainedComponent
+import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.scopes.ActivityRetainedScoped
+import javax.inject.Singleton
 
 
 @Module
-@InstallIn(ActivityRetainedComponent::class)
+@InstallIn(ApplicationComponent::class)
 class PostsModule {
 
     @Provides
-    @ActivityRetainedScoped
+    @Singleton
     fun providesGetPostsInterctor(interactor: DefaultGetPostsInteractor): GetPostsInteractor =
         interactor
 
     @Provides
-    @ActivityRetainedScoped
+    @Singleton
     fun providesRemovePostInteractro(interactor: DefaultRemovePostInteractor): RemovePostInteractor =
         interactor
 
     @Provides
-    @ActivityRetainedScoped
+    @Singleton
     fun providesPostsRepository(
         getPostsNetworkDatasource: GetPostsNetworkDatasource,
         getPostsDatabaseDataSource: GetPostsDatabaseDataSource,
@@ -72,18 +74,18 @@ class PostsModule {
     }
 
     @Provides
-    @ActivityRetainedScoped
+    @Singleton
     fun providesGetRepository(cacheRepo: FlowCacheRepository<PostEntity>): FlowGetRepository<Post> =
         cacheRepo.withMapping(PostEntityToPostMapper())
 
     @Provides
-    @ActivityRetainedScoped
     @Posts
+    @Singleton
     fun providesDeleteRepository(cacheRepo: FlowCacheRepository<PostEntity>): FlowDeleteRepository =
         cacheRepo
 
     @Provides
-    @ActivityRetainedScoped
+    @Singleton
     fun providesPostQueries(database: Database): PostDBOQueries = database.postDBOQueries
 
 }

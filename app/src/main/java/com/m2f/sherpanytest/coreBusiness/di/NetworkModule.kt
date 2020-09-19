@@ -31,7 +31,9 @@ class NetworkModule {
     @Provides
     @Singleton
     fun json(): Json {
-        return Json.Default
+        return Json {
+            ignoreUnknownKeys = true
+        }
     }
 
     @Provides

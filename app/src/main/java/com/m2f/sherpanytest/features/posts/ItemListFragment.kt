@@ -51,7 +51,7 @@ class ItemListFragment : Fragment() {
                 viewModel = vm
 
                 //for a cold start we force to download the posts from server
-                vm.retrievePosts(forceRefresh = true)
+                //vm.retrievePosts(forceRefresh = true)
 
 
             }

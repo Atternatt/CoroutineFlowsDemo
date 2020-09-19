@@ -1,4 +1,4 @@
-package com.m2f.sherpanytest.coreBusiness.domain.features.posts.data
+package com.m2f.sherpanytest.coreBusiness.domain.features.posts.data.datasource
 
 import com.m2f.sherpanytest.coreBusiness.arch.data.datasource.flow.FlowDeleteDataSource
 import com.m2f.sherpanytest.coreBusiness.arch.data.error.QueryNotSupportedException
