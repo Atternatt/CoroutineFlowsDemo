@@ -72,7 +72,7 @@ class ItemListFragment : Fragment() {
                 val bundle = Bundle()
                 bundle.putString(
                     ItemDetailFragment.ARG_ITEM_ID,
-                    post.id.toString()
+                    post.id.toLong().toString()
                 )
                 if (itemDetailFragmentContainer != null) {
                     itemDetailFragmentContainer.findNavController()

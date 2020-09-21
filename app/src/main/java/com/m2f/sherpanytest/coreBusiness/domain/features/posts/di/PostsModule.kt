@@ -17,18 +17,13 @@ import com.m2f.sherpanytest.coreBusiness.domain.features.posts.data.datasource.D
 import com.m2f.sherpanytest.coreBusiness.domain.features.posts.data.datasource.GetPostsDatabaseDataSource
 import com.m2f.sherpanytest.coreBusiness.domain.features.posts.data.datasource.GetPostsNetworkDatasource
 import com.m2f.sherpanytest.coreBusiness.domain.features.posts.data.datasource.PutPostDatabaseDataSource
-import com.m2f.sherpanytest.coreBusiness.domain.features.posts.interactor.DefaultGetPostsInteractor
-import com.m2f.sherpanytest.coreBusiness.domain.features.posts.interactor.DefaultRemovePostInteractor
-import com.m2f.sherpanytest.coreBusiness.domain.features.posts.interactor.GetPostsInteractor
-import com.m2f.sherpanytest.coreBusiness.domain.features.posts.interactor.RemovePostInteractor
+import com.m2f.sherpanytest.coreBusiness.domain.features.posts.interactor.*
 import com.m2f.sherpanytest.sqldelight.data.PostDBO
 import com.m2f.sherpanytest.sqldelight.data.PostDBOQueries
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.hilt.android.components.ApplicationComponent
-import dagger.hilt.android.scopes.ActivityRetainedScoped
 import javax.inject.Singleton
 
 
@@ -44,6 +39,11 @@ class PostsModule {
     @Provides
     @Singleton
     fun providesRemovePostInteractro(interactor: DefaultRemovePostInteractor): RemovePostInteractor =
+        interactor
+
+    @Provides
+    @Singleton
+    fun providesGetPostDetailInteractro(interactor: DefaultGetPostInteractor): GetPostInteractor =
         interactor
 
     @Provides

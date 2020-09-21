@@ -1,6 +1,7 @@
 package com.m2f.sherpanytest.di.viewmodel
 
 import androidx.lifecycle.ViewModel
+import com.m2f.sherpanytest.features.posts.PostDetailViewModel
 import com.m2f.sherpanytest.features.posts.PostsViewModel
 import dagger.Binds
 import dagger.Module
@@ -20,4 +21,10 @@ abstract class ViewModelsModule {
     @ViewModelKey(PostsViewModel::class)
     @ActivityRetainedScoped
     abstract fun postsViewModel(postsViewModel: PostsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(PostDetailViewModel::class)
+    @ActivityRetainedScoped
+    abstract fun postDetailViewModel(postDetailViewModel: PostDetailViewModel): ViewModel
 }

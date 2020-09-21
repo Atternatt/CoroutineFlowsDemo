@@ -74,6 +74,9 @@ dependencies {
     implementation "com.squareup.sqldelight:coroutines-extensions:1.4.3"
     implementation "com.squareup.sqldelight:android-driver:1.4.3"
 
+    //image
+    implementation "com.github.bumptech.glide:glide:4.11.0"
+
     //region android dependencies
 
     // coroutines android

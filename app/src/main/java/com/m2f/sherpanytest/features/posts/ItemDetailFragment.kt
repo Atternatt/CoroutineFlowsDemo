@@ -4,45 +4,40 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.m2f.sherpanytest.R
+import androidx.lifecycle.ViewModelProviders
+import com.m2f.sherpanytest.databinding.FragmentItemDetailBinding
+import com.m2f.sherpanytest.di.viewmodel.ViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-/**
- * A fragment representing a single Item detail screen.
- * This fragment is either contained in a [ItemListFragment]
- * in two-pane mode (on larger screen devices) or self-contained
- * on handsets.
- */
 @AndroidEntryPoint
 class ItemDetailFragment : Fragment() {
 
-    lateinit var itemDetailTextView: TextView
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            if (it.containsKey(ARG_ITEM_ID)) {
-                //TODO @Marc -> call viewmodel function to load post detail
-            }
-        }
+    private val vm: PostDetailViewModel by lazy {
+        ViewModelProviders.of(this, viewModelFactory).get(PostDetailViewModel::class.java)
     }
 
+    private val postId: Long by lazy { arguments?.getString(ARG_ITEM_ID)?.toLong() ?: -1 }
+
     override fun onCreateView(
-      inflater: LayoutInflater, container: ViewGroup?,
-      savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_item_detail, container, false)
+        return FragmentItemDetailBinding.inflate(inflater, container, false).apply {
+            lifecycleOwner = this@ItemDetailFragment
+            viewModel = vm
+        }.root
+    }
 
-        rootView.findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout)?.title =
-            "" //TODO: @Marc -> load toolbar title with post title
-
-        itemDetailTextView = rootView.findViewById(R.id.item_detail)
-
-        return rootView
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if(postId >= 0) {
+            vm.loadPostDetail(postId)
+        }
     }
 
     companion object {

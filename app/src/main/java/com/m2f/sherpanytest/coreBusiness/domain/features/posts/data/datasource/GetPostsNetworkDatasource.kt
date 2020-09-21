@@ -18,7 +18,7 @@ import javax.inject.Inject
 class GetPostsNetworkDatasource @Inject constructor(private val networkConfiguration: NetworkConfiguration) :
     FlowGetDataSource<PostEntity> {
 
-    override fun get(query: Query): Flow<PostEntity> = throw NotImplementedError()
+    override fun get(query: Query): Flow<PostEntity> = throw DataNotFoundException()
 
     override fun getAll(query: Query): Flow<List<PostEntity>> = flow {
 
