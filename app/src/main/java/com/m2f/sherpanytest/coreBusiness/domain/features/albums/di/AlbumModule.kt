@@ -16,7 +16,9 @@ import com.m2f.sherpanytest.coreBusiness.domain.features.albums.data.datasource.
 import com.m2f.sherpanytest.coreBusiness.domain.features.albums.data.datasource.GetAlbumNetworDataSource
 import com.m2f.sherpanytest.coreBusiness.domain.features.albums.data.datasource.PutAlbumDatabaseDataSource
 import com.m2f.sherpanytest.coreBusiness.domain.features.albums.interactor.DefaultFetchAlbumsInteractor
+import com.m2f.sherpanytest.coreBusiness.domain.features.albums.interactor.DefaultGetAlbumsForUserInteractor
 import com.m2f.sherpanytest.coreBusiness.domain.features.albums.interactor.FetchAlbumsInteractor
+import com.m2f.sherpanytest.coreBusiness.domain.features.albums.interactor.GetAlbumsForUserInteractor
 import com.m2f.sherpanytest.sqldelight.data.AlbumDBO
 import com.m2f.sherpanytest.sqldelight.data.AlbumDBOQueries
 import dagger.Module
@@ -33,6 +35,10 @@ class AlbumModule {
     @Provides
     @Singleton
     fun providesFetchAlbumsInteractor(interactor: DefaultFetchAlbumsInteractor): FetchAlbumsInteractor = interactor
+
+    @Provides
+    @Singleton
+    fun providesGetAlbumsInteractor(interactor: DefaultGetAlbumsForUserInteractor): GetAlbumsForUserInteractor = interactor
 
     @Provides
     @Singleton

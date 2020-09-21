@@ -4,10 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.m2f.sherpanytest.databinding.FragmentItemDetailBinding
 import com.m2f.sherpanytest.di.viewmodel.ViewModelFactory
+import com.m2f.sherpanytest.features.posts.model.AlbumUI
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -23,6 +27,8 @@ class ItemDetailFragment : Fragment() {
 
     private val postId: Long by lazy { arguments?.getString(ARG_ITEM_ID)?.toLong() ?: -1 }
 
+    private val adapter: AlbumsAdapter by lazy { AlbumsAdapter() }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,12 +36,17 @@ class ItemDetailFragment : Fragment() {
         return FragmentItemDetailBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = this@ItemDetailFragment
             viewModel = vm
+            listAlbums.adapter = adapter
+            listAlbums.layoutManager = object : LinearLayoutManager(requireContext()) {
+                override fun canScrollVertically(): Boolean = false
+            }
+
         }.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if(postId >= 0) {
+        if (postId >= 0) {
             vm.loadPostDetail(postId)
         }
     }
@@ -46,5 +57,14 @@ class ItemDetailFragment : Fragment() {
          * represents.
          */
         const val ARG_ITEM_ID = "item_id"
+
+
+        @BindingAdapter("bind:albums")
+        @JvmStatic
+        fun RecyclerView.bindAlbums(list: List<AlbumUI>?) {
+            if (list != null) {
+                (adapter as? AlbumsAdapter)?.initData(list)
+            }
+        }
     }
 }

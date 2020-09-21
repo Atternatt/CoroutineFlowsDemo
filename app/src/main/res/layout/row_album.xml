@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="albumUI"
+            type="com.m2f.sherpanytest.features.posts.model.AlbumUI" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="8dp">
+
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/motion_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="54dp"
+            app:layoutDescription="@xml/row_album_scene">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintVertical_bias="0"
+                android:layout_margin="16dp"
+                android:text="@{albumUI.title}"
+                tools:text="Lorem Ipsum dolor si elerit lamet"/>
+
+            <View
+                android:id="@+id/mock_view"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:background="?colorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                android:layout_margin="24dp"
+                android:visibility="gone"
+                />
+
+            <!--<androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/photos"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_margin="24dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
+                tools:listitem="@layout/row_photo"/> -->
+
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+</layout>
