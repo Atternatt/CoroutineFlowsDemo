@@ -1,0 +1,16 @@
+CREATE TABLE AlbumDBO (
+    id INTEGER NOT NULL PRIMARY KEY,
+    title TEXT NOT NULL,
+    userId INTEGER NOT NULL,
+    FOREIGN KEY (userId)
+               REFERENCES UserDBO(userId));
+
+CREATE INDEX AlbumDBO_id ON AlbumDBO(id);
+
+selectAllForUser:
+SELECT *
+FROM AlbumDBO
+WHERE userId = ?;
+
+insertOrReplace:
+INSERT OR REPLACE INTO AlbumDBO VALUES ?;

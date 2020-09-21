@@ -1,0 +1,19 @@
+
+CREATE TABLE PhotoDBO (
+    albumId INTEGER NOT NULL,
+    id INTEGER NOT NULL PRIMARY KEY,
+    thumbnailUrl TEXT NOT NULL,
+    title TEXT NOT NULL,
+    url TEXT NOT NULL,
+    FOREIGN KEY (albumId)
+               REFERENCES AlbumDBO(id));
+
+CREATE INDEX PhotoDBO_id ON PhotoDBO(id);
+
+selectAllForUser:
+SELECT *
+FROM PhotoDBO
+WHERE albumId = ?;
+
+insertOrReplace:
+INSERT OR REPLACE INTO PhotoDBO VALUES ?;
