@@ -24,7 +24,7 @@ class PostDetailViewModel @Inject constructor(
 
     val albums: LiveData<List<AlbumUI>> = postDetail.switchMap { post ->
         getAlbumsForUserInteractor(post.userId.toLong())
-            .map { it.map { AlbumUI(it.id, it.title, emptyList()) } }
+            .map { it.map { AlbumUI(it.id, it.title, listOf("https://via.placeholder.com/600/92c952","https://via.placeholder.com/600/771796","https://via.placeholder.com/600/24f355","https://via.placeholder.com/600/f66b97","https://via.placeholder.com/600/56a8c2","https://via.placeholder.com/600/b0f7cc")) } }
             .asLiveData()
     }
 

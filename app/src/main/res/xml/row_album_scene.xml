@@ -19,26 +19,10 @@
 
     <ConstraintSet android:id="@+id/end">
         <Constraint
-            android:id="@+id/mock_view"
-            android:visibility="visible"
-            android:layout_width="54dp"
-            android:layout_height="54dp"
-            android:background="?colorPrimary"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title"
-            android:layout_margin="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="24dp" />
-        <!--<Constraint
             android:id="@+id/photos"
-            android:visibility="visible"
-            android:layout_width="54dp"
+            android:layout_width="0dp"
             android:layout_height="54dp"
-            android:background="?colorPrimary"
+            android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -47,7 +31,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginBottom="24dp"/> -->
+            android:layout_marginBottom="24dp"/>
     </ConstraintSet>
 
     <Transition

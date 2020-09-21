@@ -80,6 +80,11 @@ class AlbumsAdapter :
 
         fun bind(item: AlbumUI) {
             binding.albumUI = item
+
+            if(binding.photos.adapter == null) {
+                binding.photos.adapter = PhotoAdapter(item.photos)
+            }
+
             binding.executePendingBindings()
             itemView.setOnClickListener {
                 if(binding.motionContent.progress >= 0.9) {
