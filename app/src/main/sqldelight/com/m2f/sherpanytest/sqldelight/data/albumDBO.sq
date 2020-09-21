@@ -12,5 +12,10 @@ SELECT *
 FROM AlbumDBO
 WHERE userId = ?;
 
+selectBuId:
+SELECT *
+FROM AlbumDBO
+WHERE id = ?;
+
 insertOrReplace:
 INSERT OR REPLACE INTO AlbumDBO VALUES ?;

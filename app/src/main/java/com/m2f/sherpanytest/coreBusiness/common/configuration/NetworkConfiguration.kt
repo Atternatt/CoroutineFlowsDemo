@@ -11,5 +11,7 @@ data class NetworkConfiguration(
 ) {
     val posts: String = "$apiPath/posts"
     val users: String = "$apiPath/users"
+    val albums: String = "$apiPath/albums"
+    val photos: String = "$apiPath/photos"
 
 }
