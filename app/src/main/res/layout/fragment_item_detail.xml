@@ -51,8 +51,10 @@
           android:id="@+id/item_detail"
           style="?android:attr/textAppearanceLarge"
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
+          android:layout_height="wrap_content"
           android:padding="16dp"
+          android:text="@{viewModel.postDetail.body}"
+          tools:text="@tools:sample/lorem/random"
           android:textIsSelectable="true"
           tools:context="com.m2f.sherpanytest.features.posts.ItemDetailFragment" />
 
