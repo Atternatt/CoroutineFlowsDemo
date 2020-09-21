@@ -75,5 +75,5 @@ class UserModule {
 
     @Provides
     @Singleton
-    fun providesPostQueries(database: Database): UserDBOQueries = database.userDBOQueries
+    fun providesUserQueries(database: Database): UserDBOQueries = database.userDBOQueries
 }

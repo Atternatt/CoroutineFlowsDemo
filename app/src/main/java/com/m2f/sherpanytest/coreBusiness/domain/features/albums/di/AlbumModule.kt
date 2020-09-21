@@ -73,5 +73,5 @@ class AlbumModule {
 
     @Provides
     @Singleton
-    fun providesPostQueries(database: Database): AlbumDBOQueries = database.albumDBOQueries
+    fun providesAlbumQueries(database: Database): AlbumDBOQueries = database.albumDBOQueries
 }
