@@ -16,7 +16,9 @@ import com.m2f.sherpanytest.coreBusiness.domain.features.photos.data.datasource.
 import com.m2f.sherpanytest.coreBusiness.domain.features.photos.data.datasource.GetPhotosNetworkDatasource
 import com.m2f.sherpanytest.coreBusiness.domain.features.photos.data.datasource.PutPhotoDatabaseDataSource
 import com.m2f.sherpanytest.coreBusiness.domain.features.photos.interactor.DefaultFetchAllPhotosInteractor
+import com.m2f.sherpanytest.coreBusiness.domain.features.photos.interactor.DefaultGetPhotosForAlbumInteractor
 import com.m2f.sherpanytest.coreBusiness.domain.features.photos.interactor.FetchAllPhotosInteractor
+import com.m2f.sherpanytest.coreBusiness.domain.features.photos.interactor.GetPhotosForAlbumInteractor
 import com.m2f.sherpanytest.sqldelight.data.PhotoDBO
 import com.m2f.sherpanytest.sqldelight.data.PhotoDBOQueries
 import dagger.Module
@@ -34,6 +36,10 @@ class PhotosModule {
     @Singleton
     fun providesFetchPhotosInteractor(interactor: DefaultFetchAllPhotosInteractor): FetchAllPhotosInteractor =
         interactor
+
+    @Provides
+    @Singleton
+    fun providesGetPhotosForAlbumInteractor(interactor: DefaultGetPhotosForAlbumInteractor): GetPhotosForAlbumInteractor = interactor
 
     @Provides
     @Singleton
