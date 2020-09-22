@@ -25,6 +25,5 @@ abstract class ViewModelsModule {
     @Binds
     @IntoMap
     @ViewModelKey(PostDetailViewModel::class)
-    @ActivityRetainedScoped
     abstract fun postDetailViewModel(postDetailViewModel: PostDetailViewModel): ViewModel
 }

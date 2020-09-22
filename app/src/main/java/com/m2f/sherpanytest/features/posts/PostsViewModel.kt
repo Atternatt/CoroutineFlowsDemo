@@ -18,7 +18,9 @@ class PostsViewModel @Inject constructor(
 ) :
     ViewModel() {
 
-    private val refreshData = MutableLiveData(true)
+    //if we set a default value in the constructor it gets propagated when subscribed in the bindings
+    //but this time we want to have more control over it so we'll skip a constructor initialization.
+    private val refreshData = MutableLiveData<Boolean>()
 
     val filter: LiveData<String> = MutableLiveData("")
 
@@ -37,7 +39,7 @@ class PostsViewModel @Inject constructor(
                         val email = try {
                             getUserInteractor(post.userId.toLong()).email
                         } catch (ex: DataNotFoundException) {
-                            //posible race condition detected. FetchDataWorker could not be stored data into database yet
+                            //fixme: posible race condition detected. FetchDataWorker could not be stored data into database yet
                             "Unknown mail"
                         }
                         PostUI(post.id, post.title, email)
@@ -51,8 +53,6 @@ class PostsViewModel @Inject constructor(
     }
 
     private val _isLoading = MutableLiveData(false)
-
-    val isLoading: LiveData<Boolean> = _isLoading
 
     fun updatefilter(string: String) {
         (filter as MutableLiveData).value = string

@@ -21,16 +21,6 @@ import com.m2f.sherpanytest.features.posts.model.PostUI
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-
-/**
- * A Fragment representing a list of Pings. This fragment
- * has different presentations for handset and larger screen devices. On
- * handsets, the fragment presents a list of items, which when touched,
- * lead to a {@link ItemDetailFragment} representing
- * item details. On larger screens, the Navigation controller presents the list of items and
- * item details side-by-side using two vertical panes.
- */
-
 @AndroidEntryPoint
 class ItemListFragment : Fragment() {
 
@@ -53,7 +43,7 @@ class ItemListFragment : Fragment() {
 
                 //for a cold start we force to download the posts from server
                 //vm.retrievePosts(forceRefresh = true)
-
+                vm.retrievePosts(forceRefresh = true)
 
             }
             .root
