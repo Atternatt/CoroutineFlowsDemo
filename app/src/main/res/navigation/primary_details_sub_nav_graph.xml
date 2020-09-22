@@ -11,8 +11,8 @@
     tools:layout="@layout/fragment_item_detail">
     <argument
       android:name="item_id"
-      android:defaultValue=""
-      app:argType="string" />
+      android:defaultValue="-1L"
+      app:argType="long" />
   </fragment>
 
 </navigation>

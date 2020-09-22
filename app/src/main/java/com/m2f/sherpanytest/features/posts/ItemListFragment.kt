@@ -70,9 +70,9 @@ class ItemListFragment : Fragment() {
         recyclerView.adapter = PostsAdapter(
             onItemSelected = { itemView, post ->
                 val bundle = Bundle()
-                bundle.putString(
+                bundle.putLong(
                     ItemDetailFragment.ARG_ITEM_ID,
-                    post.id.toLong().toString()
+                    post.id.toLong()
                 )
                 if (itemDetailFragmentContainer != null) {
                     itemDetailFragmentContainer.findNavController()

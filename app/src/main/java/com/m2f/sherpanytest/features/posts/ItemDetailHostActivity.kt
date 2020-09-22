@@ -13,7 +13,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.m2f.sherpanytest.R
-import com.m2f.sherpanytest.databinding.ActivityItemDetailBinding
 import com.m2f.sherpanytest.di.viewmodel.ViewModelFactory
 import com.m2f.sherpanytest.utils.findChildrenByClass
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,16 +30,12 @@ class ItemDetailHostActivity : AppCompatActivity() {
         ViewModelProviders.of(this, viewModelFactory).get(PostsViewModel::class.java)
     }
 
-    val binding by lazy { ActivityItemDetailBinding.inflate(layoutInflater) }
-
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(binding.root)
-
-        binding.viewModel = vm
+        setContentView(R.layout.activity_item_detail)
 
         val navController = findNavController(R.id.nav_host_fragment_item_detail)
         appBarConfiguration = AppBarConfiguration(navController.graph)

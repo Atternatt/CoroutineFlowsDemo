@@ -25,7 +25,7 @@ class ItemDetailFragment : Fragment() {
         ViewModelProviders.of(this, viewModelFactory).get(PostDetailViewModel::class.java)
     }
 
-    private val postId: Long by lazy { arguments?.getString(ARG_ITEM_ID)?.toLong() ?: -1 }
+    private val postId: Long by lazy { (arguments?.getLong(ARG_ITEM_ID, -1))!! }
 
     private val adapter: AlbumsAdapter by lazy { AlbumsAdapter() }
 

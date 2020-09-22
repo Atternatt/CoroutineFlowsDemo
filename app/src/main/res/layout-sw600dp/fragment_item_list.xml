@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.m2f.sherpanytest.features.posts.PostsViewModel" />
@@ -41,11 +40,12 @@
             android:id="@+id/item_detail_nav_container"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_marginStart="@dimen/container_margin"
             app:defaultNavHost="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/guideline"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:navGraph="@navigation/primary_details_sub_nav_graph" />
 
