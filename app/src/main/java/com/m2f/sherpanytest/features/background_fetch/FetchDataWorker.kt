@@ -56,9 +56,10 @@ class FetchDataWorker(
             result
         } catch (ex: Exception) {
             if (ex is UnknownHostException) {
-                Result.failure()
-            } else {
+                //an UnknownHostException could be catched if we havent got network so we try to refetch the data ASAP (following the retry policy of the worker when created)
                 Result.retry()
+            } else {
+                Result.failure()
             }
         }
     }

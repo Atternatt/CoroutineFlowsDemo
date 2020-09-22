@@ -27,9 +27,9 @@ class App: Application() {
     private fun scheduleDataFetching() {
         val fetchRequest = PeriodicWorkRequest.Builder(FetchDataWorker::class.java, 15L, TimeUnit.MINUTES)
             .setBackoffCriteria(
-                BackoffPolicy.LINEAR,
-                5L,
-                TimeUnit.SECONDS)
+                BackoffPolicy.EXPONENTIAL,
+                1L,
+                TimeUnit.MINUTES)
             .addTag(FetchDataWorker.TAG)
             .build()
         WorkManager.getInstance().enqueue(fetchRequest)
